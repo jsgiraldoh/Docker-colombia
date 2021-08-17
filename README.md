@@ -14,3 +14,5 @@ Queremos formar un grupo de personas multidisciplinario, con el cual podamos com
 🆘 Ayudamos a difundir este espacio y a compartir nuestras charlas, si quieres participar en alguna, no dudes en contactarnos.
 
 A continuación te invito al espacio donde organizamos todas nuestras charlas.
+
+[https://www.meetup.com/es-ES/docker-colombia](https://www.meetup.com/es-ES/docker-colombia)
