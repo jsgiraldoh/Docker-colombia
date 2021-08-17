@@ -16,3 +16,4 @@ Queremos formar un grupo de personas multidisciplinario, con el cual podamos com
 A continuación te invito al espacio donde organizamos todas nuestras charlas.
 
 [https://www.meetup.com/es-ES/docker-colombia](https://www.meetup.com/es-ES/docker-colombia)
+[https://www.papercall.io/docker-colombia](https://www.papercall.io/docker-colombia)
