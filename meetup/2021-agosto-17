@@ -1,0 +1,257 @@
+Introducción al maravilloso mundo de Docker
+===
+
+**Instalar Docker Engine en Ubuntu**
+
+
+1. Realizar una actualización.
+
+```
+ sudo apt-get update
+```
+
+2. Instale paquetes para permitir el uso de un repositorio sobre HTTPS.
+
+```
+sudo apt-get install \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg \
+    lsb-release
+```
+
+3. Agregue la clave GPG oficial de Docker.
+
+```
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+```
+
+4. Agregar los repositorios estables de Docker.
+
+```
+echo \
+  "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+```
+
+5. Actualizar los paquetes relacionados con los repositorios del sistema.
+
+```
+sudo apt-get update
+```
+
+6. Instalar la última versión de Docker Engine y containerd
+
+```
+sudo apt-get install docker-ce docker-ce-cli containerd.io
+```
+
+**Verificar instalación de Docker**
+
+Usar el siguiente comando:
+
+```
+docker --version
+```
+
+Obteniendo información de la instalación en el sistema.
+
+```
+docker info
+```
+
+**Agregar el usuario al grupo de Docker**
+
+Usar el siguiente comando:
+
+```
+sudo usermod –aG docker ubuntu
+```
+
+**Primer contenedor**
+
+Usar el siguiente comando:
+
+```
+docker container run hello-world
+```
+
+**Estructura de comandos**
+
+Ayuda de docker:
+
+```
+docker --help | more
+```
+
+**Contenedores - comandos**
+
+Ejecutar un contenedor:
+
+```
+docker run --name nginx -d nginx
+```
+
+Listar contenedores:
+
+```
+docker container ls
+```
+
+Iniciar un contenedor:
+
+```
+docker container start nginx
+```
+
+Detener un contenedor:
+
+```
+docker container stop nginx
+```
+
+Reiniciar un contenedor:
+
+```
+docker container restart nginx
+```
+
+Eliminar un contenedor:
+
+```
+docker container rm nginx
+```
+
+Inspeccionar  un contenedor:
+
+```
+docker container inspect nginx
+```
+
+Ver los logs de un contenedor:
+
+```
+docker logs nginx
+```
+
+Unirse a la salida estándar de los logs del contenedor:
+
+```
+docker logs -f nginx
+```
+
+Listar imágenes:
+
+```
+docker image ls
+```
+
+Eliminar una imagen:
+
+```
+docker image rm nginx
+```
+
+Inspeccionar  una imagen:
+
+```
+docker image inspect nginx
+```
+
+Introducción a Dockerfile
+===
+
+**Construir la primera imagen**
+
+1. Crear el archivo Dockerfile
+
+```
+FROM nginx
+COPY static-html-directory /usr/share/nginx/html
+```
+
+2. Crear el directorio ***static-html-directory***
+
+```
+mkdir static-html-directory
+```
+
+3. Crear nuestro archivo estático para mostrarlo en nuestro servidor web
+
+```
+vim static-html-directory/indext.html
+```
+
+4. Agregar el siguiente contenido al archivo ***index.html**
+
+```
+Bienvenidos al primer meetup de Docker colombia!!!
+```
+
+5. Ejecute el siguiente comando:
+
+```
+docker build -t docker-colombia-nginx .
+```
+
+6. Inicie su contenedor
+
+```
+docker run --name colombia-nginx -p 8080:80 -d docker-colombia-nginx
+```
+
+Ejecute el siguiente comando, para conocer el conjunto de instrucciones que fueron ejecutadas para su construcción.
+
+```
+docker image history docker-colombia-nginx
+```
+
+Instalando Docker Compose
+===
+
+1. Ejecute este comando para descargar la versión estable actual de Docker Compose:
+
+```
+sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+```
+
+2. Aplique permisos ejecutables al binario
+
+```
+sudo chmod +x /usr/local/bin/docker-compose
+```
+
+3. Probar la instalación
+
+```
+docker-compose --version
+```
+
+Ejercicio Docker Compose
+===
+
+```
+version: '3'
+services:
+  web:
+    image: dockercloud/hello-world
+  lb:
+    image: dockercloud/haproxy
+    links:
+      - web
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 80:80
+```
+
+Referencias
+===
+
+* [https://www.meetup.com/es-ES/docker-colombia](https://www.meetup.com/es-ES/docker-colombia)
+* [https://www.docker.com/](https://www.docker.com/)
+* [https://docs.docker.com/engine/install/ubuntu/](https://docs.docker.com/engine/install/ubuntu/)
+* [https://docs.docker.com/compose/install/](https://docs.docker.com/compose/install/)
+* [https://mmorejon.io/](https://mmorejon.io/)
+* [https://jsgiraldoh.io/](https://jsgiraldoh.io/)
